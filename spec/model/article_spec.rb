@@ -12,7 +12,10 @@ RSpec.describe Article, type: :model do
 
   context 'example' do
     it do
-      expect(article.summary).to eq(title + ' ' + content)
+      number = Oj.load(article.data.download).deep_symbolize_keys[:number]
+      article.change_attached_data
+      new_number = Oj.load(article.data.download).deep_symbolize_keys[:number]
+      expect(number).not_to eq new_number
     end
   end
 end
